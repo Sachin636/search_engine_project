@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import os.path
+import csv
 
 def uic_spider(max_pages):
     '''This method will crawl over the web pages.
@@ -40,8 +41,14 @@ def get_html_content(url):
 def main():
     max_page_count = 1
     urls = uic_spider(max_page_count)
-    for url in urls:
-        get_html_content(url)
+    dict = {}
+    for i in range(len(urls)):
+        dict[i+1] = urls[i]
+    w = csv.writer(open("links.csv", "w"))
+    for key, val in dict.items():
+        w.writerow([key, val])
+    #for url in urls:
+    #    get_html_content(url)
         
 if __name__ == '__main__':
     main()    

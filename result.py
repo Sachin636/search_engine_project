@@ -1,5 +1,5 @@
 from tkinter import *
-
+from vector_space_model import vector_model
 
 def gui_search():
     root = Tk()
@@ -16,7 +16,7 @@ def gui_search():
     def myClick():
         for widget in frame.winfo_children():
             widget.destroy()
-        text = str(search_query.get()).split()
+        text = vector_model(str(search_query.get()))
         for i in text:
             result = Label(frame,text = i)
             result.pack()
