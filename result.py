@@ -1,9 +1,10 @@
 from tkinter import *
 from vector_space_model import vector_model
+import webbrowser
 
 def gui_search():
     root = Tk()
-    
+    chromedir= 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
     # Enter Query Message
     search_message = Label(root,text = "Enter Query")
     search_message.pack()
@@ -18,7 +19,9 @@ def gui_search():
             widget.destroy()
         text = vector_model(str(search_query.get()))
         for i in text:
-            result = Label(frame,text = i)
+            def openBrowser():
+                webbrowser.get(chromedir).open(i)
+            result = Button(frame,text = i,command=openBrowser)
             result.pack()
     search_button = Button(root,text = "Search",padx=100,command=myClick,bg='green')
     search_button.pack()
