@@ -1,5 +1,7 @@
 from tkinter import *
 from vector_space_model import vector_model
+from functools import partial
+from page_rank import page_rank_by_words
 import webbrowser
 
 def gui_search():
@@ -18,12 +20,23 @@ def gui_search():
         for widget in frame.winfo_children():
             widget.destroy()
         text = vector_model(str(search_query.get()))
-        for i in text:
-            def openBrowser():
+        for i in range(10):
+            def openBrowser(i):
                 webbrowser.get(chromedir).open(i)
-            result = Button(frame,text = i,command=openBrowser)
+            result = Button(frame,text = text[i],command=partial(openBrowser,text[i]))
             result.pack()
-    search_button = Button(root,text = "Search",padx=100,command=myClick,bg='green')
+    search_button = Button(root,text = "Vector Model Search",padx=100,command=myClick,bg='green')
+    search_button.pack()
+    def myClick2():
+        for widget in frame.winfo_children():
+            widget.destroy()
+        text = vector_model(str(search_query.get()))
+        for i in text:
+            def openBrowser(i):
+                webbrowser.get(chromedir).open(i)
+            result = Button(frame,text = i,command=partial(openBrowser,i))
+            result.pack()
+    search_button = Button(root,text = "Page Rank Search",padx=100,command=myClick2,bg='green')
     search_button.pack()
     root.mainloop()
 

@@ -13,7 +13,7 @@ def get_all_files_directory(directory):
 
 def open_file(file_name):
     """Returns the content of the file"""
-    f = open(file_name,"r")
+    f = open(file_name,"r",encoding='iso-8859-15')
     content = f.read()
     return content
 
@@ -106,7 +106,7 @@ def calculate_query_tf_idf(query,dictionary):
         else:
             query_word_freq[word] = 1
     s=0
-    m = 0
+    m = 0.1
     for word in query_word_freq.keys():
         # Remember to change this number 
         idf = math.log(48/dictionary[word][0],2)
@@ -180,12 +180,9 @@ def vector_model(input):
     query = create_query(input)
     query_df_idf = calculate_query_tf_idf(query,dictionary)
     doc_df_idf = calcualte_tf_docs(query,dictionary)   
-    ranking = create_docs_ranking(doc_df_idf,query_df_idf,10)
+    ranking = create_docs_ranking(doc_df_idf,query_df_idf,100)
     dict = prepare_page_dict()
     result = []
     for i in ranking:
         result.append(dict[str(i)])
     return result
-    
-if __name__ == "__main__":
-    main()
